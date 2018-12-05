@@ -16,7 +16,17 @@ export default class record extends React.Component {
     })
   }
   editConfirm(){
-    console.log(this.props)
+    console.log(this.refs.date.value)
+    let params = {
+      id: this.props.id
+    }
+    for (const key in this.refs) {
+      params[key] = this.refs[key].value
+    }
+    this.props.editConfirm(params)
+    this.setState({
+      edit: false
+    })
   }
   recordDOM(){
     return (
@@ -34,9 +44,9 @@ export default class record extends React.Component {
   editDOM(){
     return (
       <tr>
-        <td><input type='text' defaultValue={this.props.date}></input></td>
-        <td><input type='text' defaultValue={this.props.title}></input></td>
-        <td><input type='text' defaultValue={this.props.amount}></input></td>
+        <td><input type='text' defaultValue={this.props.date} ref='date'></input></td>
+        <td><input type='text' defaultValue={this.props.title} ref='title'></input></td>
+        <td><input type='text' defaultValue={this.props.amount} ref='amount'></input></td>
         <td>
           <button className="btn btn-primary" onClick={()=>this.editConfirm()}>确定</button>
         </td>

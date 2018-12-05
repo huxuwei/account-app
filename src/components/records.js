@@ -26,6 +26,15 @@ export default class Records extends React.Component {
       list : this.state.list.filter(item=>item.id!==id)
     })
   }
+  editConfirm(row){
+    // console.log(row)
+    let list = this.state.list
+    let index = list.findIndex(item=>item.id=== row.id)
+    list.splice(index, 1, row)
+    this.setState({
+      list : list
+    })
+  }
   render() {
     return (
       <div>
@@ -42,7 +51,10 @@ export default class Records extends React.Component {
         </thead>
         <tbody>
           {this.state.list.map(item=>
-            <Record key={item.id} {...item} delete={(id)=>this.delete(id)}></Record>)
+            <Record key={item.id} {...item} delete={(id)=>this.delete(id)} 
+              editConfirm={(row)=>this.editConfirm(row)}>
+            </Record>
+            )
           }
         </tbody>
         
